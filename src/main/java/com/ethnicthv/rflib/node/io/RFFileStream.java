@@ -2,5 +2,5 @@ package com.ethnicthv.rflib.node.io;
 
 import java.util.stream.Stream;
 
-public class RFFileStream extends Byte {
+public class RFFileStream extends {
 }

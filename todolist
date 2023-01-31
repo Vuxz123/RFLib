@@ -1,0 +1,3 @@
+-Đơn giản hoá các node trong tree-style-file
+-Chuyền các đọc viết sang com.ethnicthv.rflib.node.io
+-Nghiên cứu hoàn thiện các định dạng DataType và init nó cho DataStorage
