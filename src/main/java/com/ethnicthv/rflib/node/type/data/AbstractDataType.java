@@ -1,36 +1,49 @@
 package com.ethnicthv.rflib.node.type.data;
 
 import com.ethnicthv.rflib.node.eception.RFNotMatchTypeException;
+import com.ethnicthv.rflib.node.type.data.properties.Properties;
+import com.ethnicthv.rflib.node.type.data.properties.Property;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 
 public class AbstractDataType {
     protected Class<?> type = null;
-    protected boolean comparable = false;
-    protected Comparator<Object> comparator = null;
-
+    protected List<Property> propertiesList = new ArrayList<>();
     protected AbstractDataType(Class<?> type) {
         this.type = type;
     }
 
     protected AbstractDataType(Class<?> type, Comparator<Object> comparator) {
         this.type = type;
-        this.comparable = true;
-        this.comparator = comparator;
     }
 
     public Class<?> getType() {
         return type;
     }
 
+    public void addProperty(Property property) {
+        this.propertiesList.add(property);
+    }
+
+    public boolean hasProperty(Property property) {
+        return propertiesList.contains(property);
+    }
+
+    public Object getPropertyContainer(Property property) {
+        if(!hasProperty(property)) return null;
+        return null;
+    }
+
     public boolean isComparable() {
-        return true;
+        return this.hasProperty(Properties.COMPARATOR);
     }
 
     public Comparator<Object> getComparator() {
         if (!this.isComparable()) return null;
-        return comparator;
+        return (Comparator<Object>) this.getPropertyContainer(Properties.COMPARATOR);
     }
 
     public DataStorage creatStorage() {
@@ -49,13 +62,13 @@ public class AbstractDataType {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AbstractDataType dataType = (AbstractDataType) o;
-        return comparable == dataType.comparable && Objects.equals(type, dataType.type) && Objects.equals(comparator, dataType.comparator);
+        AbstractDataType that = (AbstractDataType) o;
+        return Objects.equals(type, that.type) && Objects.equals(propertiesList, that.propertiesList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, comparable, comparator);
+        return Objects.hash(type, propertiesList);
     }
 
     @Override

@@ -31,12 +31,15 @@ public class DataType extends AbstractDataType {
     public static final DataType STRING = new DataType(String.class);
 
     //Define
-    DataType(Class<?> type) {
+    private DataType(Class<?> type) {
         super(type);
     }
 
-    DataType(Class<?> type, Comparator<Object> comparator) {
+    private DataType(Class<?> type, Comparator<Object> comparator) {
         super(type, comparator);
     }
 
+    public static class BUILDER {
+
+    }
 }
